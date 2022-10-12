@@ -66,7 +66,7 @@ int main(){
             fclose(data);
         }
         if(option == 12){
-            remove("Data/IndexInvoiceNo");
+            remove("Data/IndexInvoiceNo.csv");
             FILE *indexInvoiceNo = fopen("Data/IndexInvoiceNo.csv", "w");
             //createIndexInvoiceNo(data);
             fclose(data);
