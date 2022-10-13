@@ -27,7 +27,11 @@ def createIndexStockCode(dataFile):
         if(rowCsv[0] == ''):
             break 
         else:
-            if(os.stat("Data/IndexStockCode.csv").st_size == 0):
+            if(os.path.exists("Data/IndexStockCode.csv") == False):
+                indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
+                indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
+                indexStockCodeFile.close()
+            elif(os.stat("Data/IndexStockCode.csv").st_size == 0):
                 indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
                 indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
                 indexStockCodeFile.close()
@@ -39,7 +43,8 @@ def createIndexStockCode(dataFile):
                 indexStockCodeFile.seek(insertPos*20)
                 indexRow = 'aux'
                 while(indexRow!=''):
-                    indexStockCodeFileAux.write(indexStockCodeFile.readline())
+                    indexRow = indexStockCodeFile.readline()
+                    indexStockCodeFileAux.write(indexRow)
                 
                 indexStockCodeFile.close()
                 indexStockCodeFileAux.close()
