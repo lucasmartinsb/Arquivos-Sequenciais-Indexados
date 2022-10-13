@@ -18,7 +18,9 @@ def createIndexId(dataFile):
 def createIndexStockCode(dataFile):
     if(os.path.exists("Data/IndexStockCode.csv")):
         os.remove("Data/IndexStockCode.csv")
-    IndexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
+    if(os.path.exists("Data/IndexStockCodeAux.csv")):
+        os.remove("Data/IndexStockCodeAux.csv")    
+    indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
     pos = 0
 
     while True:
@@ -27,16 +29,26 @@ def createIndexStockCode(dataFile):
             break 
         else:
             if(os.stat("Data/IndexStockCode.csv").st_size == 0):
-                IndexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
-                IndexStockCodeFile.close()
+                indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
+                indexStockCodeFile.close()
             else: 
-                IndexStockCodeFile.close()
-                insertPos = findRowStockCode(rowCsv[2]) * 20
-                IndexStockCodeFile = open("Data/IndexStockCode.csv", 'a')
-                IndexStockCodeFile.seek(insertPos)
-                IndexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
-                IndexStockCodeFile.close()
+                indexStockCodeFile.close()
+                insertPos = findRowStockCode(rowCsv[2])
+                indexStockCodeFileAux = open("Data/IndexStockCodeAux.csv", 'a')
+                indexStockCodeFileAux.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
+                indexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
+                indexStockCodeFile.seek(insertPos*20)
+                indexRow = 'aux'
+                while(indexRow!=''):
+                    indexRow = indexStockCodeFile.readline()
+                    indexStockCodeFileAux.write(indexRow)
+                
+                indexStockCodeFile.close()
+                indexStockCodeFileAux.close()
+
+                os.remove("Data/IndexStockCode.csv")
+                os.rename("Data/IndexStockCodeAux.csv", "Data/IndexStockCode.csv")
             print(pos)
             pos+=1
     
-    IndexStockCodeFile.close()
+    indexStockCodeFile.close()
