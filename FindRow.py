@@ -1,4 +1,4 @@
-def findRowStockCode(stockCode):
+def findAndWriteRowStockCode(stockCode):
     indexStockCodeFileAux = open("Data/IndexStockCodeAux.csv", 'w')
     IndexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
     pos = 0

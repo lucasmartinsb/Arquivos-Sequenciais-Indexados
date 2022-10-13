@@ -1,5 +1,5 @@
 import os
-from FindRow import findRowStockCode
+from FindRow import findAndWriteRowStockCode
 
 def createIndexId(dataFile):
     if(os.path.exists("Data/IndexID.csv")):
@@ -14,13 +14,12 @@ def createIndexId(dataFile):
 
     indexIdFile.close()
 
-# Não funciona porque escreve por cima, não insere linhas 
 def createIndexStockCode(dataFile):
     if(os.path.exists("Data/IndexStockCode.csv")):
         os.remove("Data/IndexStockCode.csv")
     if(os.path.exists("Data/IndexStockCodeAux.csv")):
         os.remove("Data/IndexStockCodeAux.csv")    
-    indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
+    
     pos = 0
 
     while True:
@@ -29,19 +28,18 @@ def createIndexStockCode(dataFile):
             break 
         else:
             if(os.stat("Data/IndexStockCode.csv").st_size == 0):
+                indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
                 indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
                 indexStockCodeFile.close()
             else: 
-                indexStockCodeFile.close()
-                insertPos = findRowStockCode(rowCsv[2])
+                insertPos = findAndWriteRowStockCode(rowCsv[2])
                 indexStockCodeFileAux = open("Data/IndexStockCodeAux.csv", 'a')
                 indexStockCodeFileAux.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
                 indexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
                 indexStockCodeFile.seek(insertPos*20)
                 indexRow = 'aux'
                 while(indexRow!=''):
-                    indexRow = indexStockCodeFile.readline()
-                    indexStockCodeFileAux.write(indexRow)
+                    indexStockCodeFileAux.write(indexStockCodeFile.readline())
                 
                 indexStockCodeFile.close()
                 indexStockCodeFileAux.close()
