@@ -22,7 +22,7 @@ def createIndexStockCode(dataFile):
     
     pos = 0
 
-    while True:
+    while pos < 100000:
         rowCsv = dataFile.readline().split(";")
         if(rowCsv[0] == ''):
             break 
@@ -35,10 +35,12 @@ def createIndexStockCode(dataFile):
                 indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
                 indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
                 indexStockCodeFile.close()
-            else: 
+
+            else:
                 insertPos = findAndWriteRowStockCode(rowCsv[2])
                 indexStockCodeFileAux = open("Data/IndexStockCodeAux.csv", 'a')
                 indexStockCodeFileAux.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
+                
                 indexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
                 indexStockCodeFile.seek(insertPos*20)
                 indexRow = 'aux'
@@ -51,7 +53,7 @@ def createIndexStockCode(dataFile):
 
                 os.remove("Data/IndexStockCode.csv")
                 os.rename("Data/IndexStockCodeAux.csv", "Data/IndexStockCode.csv")
-            print(pos)
+            #print(pos)
             pos+=1
     
     indexStockCodeFile.close()

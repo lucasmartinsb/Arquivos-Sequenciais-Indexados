@@ -1,6 +1,5 @@
 from timeit import default_timer as timer
 
-import os
 from Menu import menu
 from CreateIndexFiles import createIndexId, createIndexStockCode
 
