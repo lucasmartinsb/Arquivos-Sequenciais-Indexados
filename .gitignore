@@ -8,3 +8,4 @@ Data/.DS_Store
 Data/IndexID.csv
 Data/IndexStockCode.csv
 Data/IndexStockCodeAux.csv
+Data/Backup/IndexStockCode.csv

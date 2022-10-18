@@ -1,5 +1,6 @@
 import os
-from FindRow import findAndWriteRowStockCode
+from SortLists import sortStockCode
+from operator import index, itemgetter
 
 def createIndexId(dataFile):
     if(os.path.exists("Data/IndexID.csv")):
@@ -17,43 +18,31 @@ def createIndexId(dataFile):
 def createIndexStockCode(dataFile):
     if(os.path.exists("Data/IndexStockCode.csv")):
         os.remove("Data/IndexStockCode.csv")
-    if(os.path.exists("Data/IndexStockCodeAux.csv")):
-        os.remove("Data/IndexStockCodeAux.csv")    
+    
     
     pos = 0
+    memoryIndex = [[0 for x in range(2)] for y in range(400366)]
 
-    while pos < 100000:
+    while True:
         rowCsv = dataFile.readline().split(";")
         if(rowCsv[0] == ''):
-            break 
+            break
         else:
-            if(os.path.exists("Data/IndexStockCode.csv") == False):
-                indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
-                indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
-                indexStockCodeFile.close()
-            elif(os.stat("Data/IndexStockCode.csv").st_size == 0):
-                indexStockCodeFile = open("Data/IndexStockCode.csv", 'w')
-                indexStockCodeFile.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
-                indexStockCodeFile.close()
+            memoryIndex[pos][0] = str(pos).ljust(6)
+            memoryIndex[pos][1] = str(rowCsv[2])
+        pos+=1
 
-            else:
-                insertPos = findAndWriteRowStockCode(rowCsv[2])
-                indexStockCodeFileAux = open("Data/IndexStockCodeAux.csv", 'a')
-                indexStockCodeFileAux.write(str(pos).ljust(6)+';'+rowCsv[2]+"\n")
-                
-                indexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
-                indexStockCodeFile.seek(insertPos*20)
-                indexRow = 'aux'
-                while(indexRow!=''):
-                    indexRow = indexStockCodeFile.readline()
-                    indexStockCodeFileAux.write(indexRow)
-                
-                indexStockCodeFile.close()
-                indexStockCodeFileAux.close()
+    memoryIndexSorted = sortStockCode(memoryIndex)
+    #memoryIndex.sort(key=itemgetter(1))
+    print(memoryIndexSorted[1][1])
 
-                os.remove("Data/IndexStockCode.csv")
-                os.rename("Data/IndexStockCodeAux.csv", "Data/IndexStockCode.csv")
-            #print(pos)
-            pos+=1
-    
-    indexStockCodeFile.close()
+    # pos = 0
+    # indexStockCodeFile = open("Data/IndexStockCode.csv", "w")
+    # while True:
+    #     try:
+    #         row = memoryIndex[pos]
+    #         indexStockCodeFile.write(row[0]+';'+row[1]+'\n')
+    #         pos+=1
+    #     except:
+    #         break
+    # indexStockCodeFile.close()
