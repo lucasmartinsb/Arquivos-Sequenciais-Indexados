@@ -1,7 +1,7 @@
 from timeit import default_timer as timer
 
 from Menu import menu
-from CreateIndexFiles import createIndexId, createIndexStockCode
+from CreateIndexFiles import createIndexId, createIndexStockCode, createIndexCustomer, createIndexCountry
 
 def main():
     option = 100
@@ -27,12 +27,21 @@ def main():
             dataFile.close()
             
         elif(option == 13):
-            #indexStockCode = createIndexDescription(data)
+            start = timer()
+            indexCustomer = createIndexCustomer(dataFile)
+            end = timer()
+
+            print("Tempo para gerar arquivo (s): "+str(round(float(end-start), 4))+"\n")
             dataFile.close()
         
         elif(option == 14):
-            #indexDescription = createIndexCustomer(data)
+            start = timer()
+            indexCountry = createIndexCountry(dataFile)
+            end = timer()
+
+            print("Tempo para gerar arquivo (s): "+str(round(float(end-start), 4))+"\n")
             dataFile.close()
+
 
         elif(option == 21):
             indexIdFile = open("Data/IndexID.csv", 'r')
