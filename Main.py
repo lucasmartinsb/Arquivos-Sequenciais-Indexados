@@ -2,6 +2,8 @@ from timeit import default_timer as timer
 
 from Menu import menu
 from CreateIndexFiles import createIndexId, createIndexStockCode, createIndexCustomer, createIndexCountry
+from binarySearchIndex import searchId
+from writeRegister import writeRegister
 
 def main():
     option = 100
@@ -47,7 +49,11 @@ def main():
             indexIdFile = open("Data/IndexID.csv", 'r')
             id = str(input("Digite o ID a ser buscado: "))
             
-            #binarySearchIndexId(data, indexIdFile, id)
+            register = searchId(id)
+            if(register == None):
+                print('ID nao encontrado')
+            else:
+                writeRegister(register)
             
             dataFile.close()
             indexIdFile.close()

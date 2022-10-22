@@ -1,5 +1,4 @@
 import os
-from SortLists import sortStockCode
 from operator import index, itemgetter
 
 def createIndexId(dataFile):
