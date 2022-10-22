@@ -2,7 +2,7 @@ from timeit import default_timer as timer
 
 from Menu import menu
 from CreateIndexFiles import createIndexId, createIndexStockCode, createIndexCustomer, createIndexCountry
-from binarySearchIndex import searchId
+from binarySearchIndex import searchId #, searchCustomer, searchCountry
 from writeRegister import writeRegister
 
 def main():
@@ -61,20 +61,31 @@ def main():
         elif(option == 22):
             IndexStockCodeFile = open("Data/IndexStockCode.csv", 'r')
             stockCode = str(input("Digite o stockCode a ser buscado: "))
-
-            #binarySearchIndexStockCode(data, IndexStockCodeFile, stockCode)
+            #register = searchStockCode(stockCode)
+            if(register == None):
+                print('ID nao encontrado')
+            else:
+                writeRegister(register)
             
             dataFile.close()
             indexIdFile.close()
-            
-        elif(option == 23):
-            description = str(input("Digite o description a ser buscado: "))
-            #binarySearchIndexStockCode(data, indexDescription, description)
-            dataFile.close()
 
-        elif(option == 24):
+        elif(option == 23):
             customer = str(input("Digite o customer a ser buscado: "))
-            #binarySearchCustomer(data, indexCustomer, customer)
+            #register = searchCustomer(customer)
+            if(register == None):
+                print('Customer nao encontrado')
+            else:
+                writeRegister(register)
+
+            dataFile.close()
+        elif(option == 24):
+            country = str(input("Digite o country a ser buscado: "))
+            #register = searchCountry(country)
+            if(register == None):
+                print('Country nao encontrado')
+            else:
+                writeRegister(register)
             dataFile.close()
 
 if __name__ == "__main__":
