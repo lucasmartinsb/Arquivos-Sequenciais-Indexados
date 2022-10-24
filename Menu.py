@@ -4,12 +4,13 @@ def menu():
         print("0. Sair")
         print("1. Criacao de indice")
         print("2. Consulta de registro")
+        print("3. Consultas")
         option = int(input())
         if(option == 1):
             print("  1. Indice em arquivo, - Campo chave (ID)")
             print("  2. Indice em arquivo, - Campo stockCode")
-            print("  4. Indice em memoria - Campo customer")
-            print("  3. Indice em memoria - Campo country")
+            print("  3. Indice em memoria - Campo customer")
+            print("  4. Indice em memoria - Campo country")
             option = int(input("  "))
             option += 10
             break
@@ -22,5 +23,15 @@ def menu():
 
             option = int(input("  "))
             option += 20
+            break
+
+        elif(option == 3):
+            print("  1. Quantidade de vendas para o um country")
+            print("  2. Produto mais caro")
+            print("  3. Busca por customer - Indice em memoria")
+            print("  4. Busca por country - Indice em memoria")
+
+            option = int(input("  "))
+            option += 30
             break
     return option
