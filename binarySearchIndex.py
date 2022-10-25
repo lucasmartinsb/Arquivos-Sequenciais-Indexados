@@ -1,4 +1,3 @@
-from binarySearchData import binarySearchFile
 from rowCount import rowCount
 
 def searchId(id):
@@ -12,10 +11,10 @@ def searchId(id):
     while low<=high:
         mid = (high+low)//2
         indexIdFile = open("Data/indexId.csv", 'r')
-        indexIdFile.seek(mid*27)
+        indexIdFile.seek(mid*34)
         rowList = indexIdFile.readline().split(";")
         indexIdFile.close()
-        rowId = rowList[1][0:19].strip()
+        rowId = rowList[2][0:19].strip()
         if rowId < id:
             low = mid+1
         elif rowId > id:
@@ -27,8 +26,7 @@ def searchId(id):
     if found == False:
         return None 
     else:
-        pos = int(rowList[0])
-        return binarySearchFile(pos)
+        return rowList
 
 def searchStockCode(stockCode):
     dataFile = open("Data/FinalData.csv", 'r')
@@ -41,10 +39,10 @@ def searchStockCode(stockCode):
     while low<=high:
         mid = (high+low)//2
         indexStockCode = open("Data/indexStockCode.csv", 'r')
-        indexStockCode.seek(mid*20)
+        indexStockCode.seek(mid*27)
         rowList = indexStockCode.readline().split(";")
         indexStockCode.close()
-        rowStockCode = rowList[1][0:12].strip()
+        rowStockCode = rowList[2][0:12].strip()
         if rowStockCode < stockCode:
             low = mid+1
         elif rowStockCode > stockCode:
@@ -56,8 +54,7 @@ def searchStockCode(stockCode):
     if found == False:
         return None 
     else:
-        pos = int(rowList[0])
-        return binarySearchFile(pos)
+        return rowList
 
 def searchCustomer(customer, indexCustomer):
     found = False
@@ -67,7 +64,7 @@ def searchCustomer(customer, indexCustomer):
 
     while low<=high:
         mid = (high+low)//2
-        rowId = indexCustomer[mid][1][0:5].strip()
+        rowId = indexCustomer[mid][2][0:5].strip()
         if rowId < customer:
             low = mid+1
         elif rowId > customer:
@@ -79,8 +76,7 @@ def searchCustomer(customer, indexCustomer):
     if found == False:
         return None 
     else:
-        pos = int(indexCustomer[mid][0])
-        return binarySearchFile(pos)
+        return indexCustomer[mid]
 
 def searchCountry(country, indexCountry):
     found = False
@@ -90,7 +86,7 @@ def searchCountry(country, indexCountry):
 
     while low<=high:
         mid = (high+low)//2
-        rowCountry = indexCountry[mid][1][0:20].strip()
+        rowCountry = indexCountry[mid][2][0:20].strip()
         if rowCountry < country:
             low = mid+1
         elif rowCountry > country:
@@ -102,5 +98,4 @@ def searchCountry(country, indexCountry):
     if found == False:
         return None 
     else:
-        pos = int(indexCountry[mid][0])
-        return binarySearchFile(pos)
+        return indexCountry[mid]
