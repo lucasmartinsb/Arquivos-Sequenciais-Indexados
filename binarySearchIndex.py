@@ -56,27 +56,8 @@ def searchStockCode(stockCode):
     else:
         return rowList
 
-def searchCustomer(customer, indexCustomer):
-    found = False
-    low = 0
-    mid = 0
-    high = len(indexCustomer)
-
-    while low<=high:
-        mid = (high+low)//2
-        rowId = indexCustomer[mid][2][0:5].strip()
-        if rowId < customer:
-            low = mid+1
-        elif rowId > customer:
-            high = mid - 1
-        else:
-            found = True
-            break   
-
-    if found == False:
-        return None 
-    else:
-        return indexCustomer[mid]
+def searchCustomer(customer, rootIndexCustomer):
+    return rootIndexCustomer.findval(customer)
 
 def searchCountry(country, indexCountry):
     found = False
@@ -86,7 +67,10 @@ def searchCountry(country, indexCountry):
 
     while low<=high:
         mid = (high+low)//2
-        rowCountry = indexCountry[mid][2][0:20].strip()
+        try: 
+            rowCountry = indexCountry[mid][2][0:20].strip()
+        except: 
+            break
         if rowCountry < country:
             low = mid+1
         elif rowCountry > country:

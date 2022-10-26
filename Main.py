@@ -5,8 +5,7 @@ from CreateIndexFiles import createIndexId, createIndexStockCode, createIndexCus
 from binarySearchIndex import searchId, searchStockCode, searchCustomer, searchCountry
 from binarySearchData import binarySearchFile
 from writeRegister import writeRegister
-from Queries import countFromCountry, mostExpensiveProduct
-
+from Queries import countFromCountry, mostExpensiveProductStockCode
 
 def main():
     option = 100
@@ -35,7 +34,7 @@ def main():
         elif(option == 13):
             dataFile = open("Data/FinalData.csv", 'r')
             start = timer()
-            indexCustomer = createIndexCustomer(dataFile)
+            rootIndexCustomer = createIndexCustomer(dataFile)
             end = timer()
 
             print("Tempo para gerar arquivo (s): "+str(round(float(end-start), 4))+"\n")
@@ -50,7 +49,6 @@ def main():
             print("Tempo para gerar arquivo (s): "+str(round(float(end-start), 4))+"\n")
             dataFile.close()
 
-
         elif(option == 21):
             id = str(input("Digite o ID a ser buscado: "))
             
@@ -58,13 +56,13 @@ def main():
             if(indexRow == None):
                 print('ID nao encontrado')
             else:
-                register = binarySearchFile(register)
+                register = binarySearchFile(int(indexRow[1]))
                 writeRegister(register)
         
         elif(option == 22):
             stockCode = str(input("Digite o stockCode a ser buscado: "))
-            indexRow = searchStockCode(stockCode)
 
+            indexRow = searchStockCode(stockCode)
             if(indexRow == None):
                 print('ID nao encontrado')
             else:
@@ -73,12 +71,12 @@ def main():
 
         elif(option == 23):
             customer = str(input("Digite o customer a ser buscado: "))
-            indexRow = searchCustomer(customer, indexCustomer)
+            indexRow = searchCustomer(customer, rootIndexCustomer)
 
             if(indexRow == None):
                 print('Customer nao encontrado')
             else:
-                register = binarySearchFile(indexRow[1])
+                register = binarySearchFile(int(indexRow[1]))
                 writeRegister(register)
 
             dataFile.close()
@@ -89,7 +87,7 @@ def main():
             if(indexRow == None):
                 print('Country nao encontrado')
             else:
-                register = binarySearchFile(indexRow[1])
+                register = binarySearchFile(int(indexRow[1]))
                 writeRegister(register)
         
         elif(option == 31):
@@ -98,12 +96,11 @@ def main():
         
         elif(option == 32):
             stockCode = str(input("Digite o stockCode a ser buscado maior valor: "))
-            mostExpensiveRegister = mostExpensiveProduct(stockCode)
+            mostExpensiveRegister = mostExpensiveProductStockCode(stockCode)
             if(mostExpensiveRegister == None):
                 print('StockCode nao econtrado!')
             else:
                 writeRegister(mostExpensiveRegister)
-
 
 if __name__ == "__main__":
     main()

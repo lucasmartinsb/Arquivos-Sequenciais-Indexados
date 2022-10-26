@@ -1,5 +1,6 @@
 import os
 from operator import index, itemgetter
+from treeNode import Node
 
 def createIndexId(dataFile):
     if(os.path.exists("Data/IndexID.csv")):
@@ -19,7 +20,6 @@ def createIndexId(dataFile):
 def createIndexStockCode(dataFile):
     if(os.path.exists("Data/IndexStockCode.csv")):
         os.remove("Data/IndexStockCode.csv")
-    
     pos = 0
     memoryIndex = [[0 for x in range(2)] for y in range(400366)]
 
@@ -50,41 +50,52 @@ def createIndexStockCode(dataFile):
 
 def createIndexCustomer(dataFile):
     pos = 0
-    i = 0
     memoryIndex = [[0 for x in range(3)] for y in range(400366)]
-
     while True:
         rowCsv = dataFile.readline().split(";")
         try:
-            memoryIndex[pos][0] = str(i).ljust(6)
-            memoryIndex[pos][1] = str(pos).ljust(6)
-            memoryIndex[pos][2] = str(rowCsv[7])
-        except: 
+            memoryIndex[pos][0] = 0
+            memoryIndex[pos][1] = str(pos)
+            memoryIndex[pos][2] = str(rowCsv[7]).strip()
+        except:
             break
         pos+=1
-        i+=1
-
-    memoryIndex.sort(key=itemgetter(2))
     
-    return memoryIndex
+    pos = 1
+    root = Node(memoryIndex[0])
+    while True:
+        try:
+            root.insertNode(memoryIndex[pos])
+        except:
+            break
+        pos+=1
+    return root
 
 def createIndexCountry(dataFile):
     pos = 0
-    i = 0
+    
     memoryIndex = [[0 for x in range(3)] for y in range(400366)]
 
     while True:
         rowCsv = dataFile.readline().split(";")
         try:
-            memoryIndex[pos][0] = str(i).ljust(6)
+            memoryIndex[pos][0] = 0
             memoryIndex[pos][1] = str(pos).ljust(6)
             memoryIndex[pos][2] = str(rowCsv[8])
         except: 
             break
         pos+=1
-        i+=1
-        
 
     memoryIndex.sort(key=itemgetter(2))
-    
+
+    i = 0
+    pos = 0
+    while True:
+        try:
+            memoryIndex[pos][0] = i
+            i+=1
+            pos+=1
+        except:
+            break 
+        
     return memoryIndex

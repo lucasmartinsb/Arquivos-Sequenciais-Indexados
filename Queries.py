@@ -1,14 +1,41 @@
 from binarySearchData import binarySearchFile
-from binarySearchIndex import searchStockCode
+from binarySearchIndex import searchCountry, searchStockCode
 
 def countFromCountry(indexCountry, country):
-    count = 0
-    for row in indexCountry:
-        if(row[2][0:20].strip() == country):
-            count+=1
-    return count
+    try:
+        initialPos = int(searchCountry(country, indexCountry)[0]) 
+    except:
+        return None
 
-def mostExpensiveProduct(stockCode):
+    count = 1
+    i = 1
+    while True:
+        try:
+            row = indexCountry[initialPos-i]
+            i+=1
+            rowStockCode = row[2][0:20].strip()
+        except: 
+            break
+        if(rowStockCode == country):
+            count+=1
+        else:
+            break
+    
+    i = 1
+    while True:
+        try:
+            row = indexCountry[initialPos+i]
+            i+=1
+            rowStockCode = row[2][0:20].strip()
+        except: 
+            break
+        if(rowStockCode == country):
+            count+=1
+        else:
+            break     
+    return count 
+
+def mostExpensiveProductStockCode(stockCode):
     try:
         initialPos = int(searchStockCode(stockCode)[0]) 
     except:
@@ -43,5 +70,3 @@ def mostExpensiveProduct(stockCode):
                 mostExpensivePrice = float(dataFileRow[6].strip())
     
     return mostExpensiveProduct
-
-    
