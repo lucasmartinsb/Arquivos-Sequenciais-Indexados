@@ -1,6 +1,6 @@
 import os
 from operator import index, itemgetter
-from treeNode import Node
+from treeNode import treeNode
 
 def createIndexId(dataFile):
     if(os.path.exists("Data/IndexID.csv")):
@@ -62,10 +62,10 @@ def createIndexCustomer(dataFile):
         pos+=1
     
     pos = 1
-    root = Node(memoryIndex[0])
+    root = treeNode(memoryIndex[0])
     while True:
         try:
-            root.insertNode(memoryIndex[pos])
+            root.insertTreeNode(memoryIndex[pos])
         except:
             break
         pos+=1

@@ -1,31 +1,35 @@
-class Node:
-    def __init__(self, data):
-        # left child
-        self.left = None
-        # right child
-        self.right = None
-        # node's value
-        self.data = data
+from listNode import listNode
 
-    # print function
-    def PrintTree(self):
-        print(self.data)
+class treeNode:
+    def __init__(self, data):
+        self.left = None
+        self.right = None
+        self.data = data
+        self.quantity = 1
+        self.list = None
         
-    def insertNode(self, data):
-    # Compare the new value with the parent node
+    def insertTreeNode(self, data):
             if self.data:
                 if data[2] < self.data[2]:
                     if self.left is None:
-                        self.left = Node(data)
+                        self.left = treeNode(data)
                     else:
-                        self.left.insertNode(data)
+                        self.left.insertTreeNode(data)
                 elif data[2] > self.data[2]:
                     if self.right is None:
-                        self.right = Node(data)
+                        self.right = treeNode(data)
                     else:
-                        self.right.insertNode(data)
+                        self.right.insertTreeNode(data)
+                elif data[2] == self.data[2]:
+                    if(self.quantity == 1):
+                        self.list = listNode(data)
+                    else:
+                        self.list.insertEnd(data)
+                    self.quantity += 1
             else:
                 self.data[2] = data[2]
+                
+                
                 
     def findval(self, customer):
         if customer < self.data[2]:
