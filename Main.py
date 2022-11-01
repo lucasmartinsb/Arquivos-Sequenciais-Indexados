@@ -5,7 +5,7 @@ from CreateIndexFiles import createIndexId, createIndexStockCode, createIndexCus
 from binarySearchIndex import searchId, searchStockCode, searchCustomer, searchCountry
 from binarySearchData import binarySearchFile
 from writeRegister import writeRegister
-from Queries import countFromCountry, mostExpensiveProductStockCode
+from Queries import countFromCountry, mostExpensiveProductStockCode, customerPurchases
 
 def main():
     option = 100
@@ -76,7 +76,7 @@ def main():
             if(indexRow == None):
                 print('Customer nao encontrado')
             else:
-                register = binarySearchFile(int(indexRow[1]))
+                register = binarySearchFile(int(indexRow.data[1]))
                 writeRegister(register)
 
             dataFile.close()
@@ -101,6 +101,13 @@ def main():
                 print('StockCode nao econtrado!')
             else:
                 writeRegister(mostExpensiveRegister)
+        elif(option == 33):
+            customer = str(input("Digite o customer a ser buscado a quantidade de compras: "))
+            customer = customerPurchases(customer, rootIndexCustomer)
+            if(customer != None):
+                print("Quantidade de compras: "+str(customer.quantity))
+            else:
+                print("Customer nao encontrado!")
 
 if __name__ == "__main__":
     main()

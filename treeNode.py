@@ -41,4 +41,4 @@ class treeNode:
                 return None
             return self.right.findval(customer)
         else:
-            return self.data
+            return self

@@ -1,5 +1,6 @@
 from binarySearchData import binarySearchFile
 from binarySearchIndex import searchCountry, searchStockCode
+from treeNode import treeNode
 
 def countFromCountry(indexCountry, country):
     try:
@@ -70,3 +71,10 @@ def mostExpensiveProductStockCode(stockCode):
                 mostExpensivePrice = float(dataFileRow[6].strip())
     
     return mostExpensiveProduct
+
+def customerPurchases(customer, root):
+    try:
+        return root.findval(customer)
+    except:
+        return None
+    

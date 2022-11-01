@@ -28,6 +28,7 @@ def menu():
         elif(option == 3):
             print("  1. Quantidade de vendas para o um country")
             print("  2. Valor mais alto de um produto")
+            print("  3. Buscar quantidade de compras de um customer")
 
             option = int(input("  "))
             option += 30
