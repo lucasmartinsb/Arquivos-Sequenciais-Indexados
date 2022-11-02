@@ -50,13 +50,12 @@ def createIndexStockCode(dataFile):
 
 def createIndexCustomer(dataFile):
     pos = 0
-    memoryIndex = [[0 for x in range(3)] for y in range(400366)]
+    memoryIndex = [[0 for x in range(2)] for y in range(400366)]
     while True:
         rowCsv = dataFile.readline().split(";")
         try:
-            memoryIndex[pos][0] = 0
-            memoryIndex[pos][1] = str(pos)
-            memoryIndex[pos][2] = str(rowCsv[7]).strip()
+            memoryIndex[pos][0] = str(pos)
+            memoryIndex[pos][1] = str(rowCsv[7]).strip()
         except:
             break
         pos+=1

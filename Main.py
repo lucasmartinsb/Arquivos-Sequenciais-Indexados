@@ -76,7 +76,7 @@ def main():
             if(indexRow == None):
                 print('Customer nao encontrado')
             else:
-                register = binarySearchFile(int(indexRow.data[1]))
+                register = binarySearchFile(int(indexRow.data[0]))
                 writeRegister(register)
 
             dataFile.close()
